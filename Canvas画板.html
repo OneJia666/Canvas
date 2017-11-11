@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Canvas画板</title>
+</head>
+<body>
+<canvas width="800" height="500" style="border:1px solid">
+	<span>您的浏览器版本过低，不支持canvas功能！！！</span>
+</canvas>
+<br/><br/>
+<button>大</button>
+<button>中</button>
+<button>小</button>
+<button>清除画板</button>
+<br/><br/>
+<input type="color"/>
+<script>
+    var canvas=document.getElementsByTagName("canvas")[0];
+    var inp=document.getElementsByTagName("input")[0];
+    var btn=document.getElementsByTagName("button");
+    var ctx=canvas.getContext("2d");
+    function down(val){
+        canvas.onmousedown=function(e){
+            ctx.beginPath();
+            var ev=e||event;
+            var x=ev.clientX;
+            var y=ev.clientY;
+            ctx.moveTo(x,y);
+            canvas.onmousemove=function(e){
+                var ev=e||event;
+                var x1=ev.clientX;
+                var y1=ev.clientY;
+                ctx.lineTo(x1,y1);
+                ctx.strokeStyle=inp.value;
+                ctx.lineWidth=val;
+                ctx.stroke();
+
+            }
+            canvas.onmouseup=function(){
+                canvas.onmousemove="" ;
+                ctx.closePath();
+            }
+        }
+    }
+    btn[0].onclick=function(){
+        down(15)
+    }
+    btn[1].onclick=function(){
+        down(10)
+    }
+    btn[2].onclick=function(){
+        down(2)
+    }
+    btn[3].onclick=function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+</script>
+</body>
+</html>

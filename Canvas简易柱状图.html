@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			html,body{overflow: hidden;background: #000;text-align: center;}
+			canvas{background: #fff;padding: 60px 60px 0 60px;}
+			span{color: #FFFFFF;font-size: 50px;}
+		</style>
+	</head>
+	<body>
+		<canvas id="cl" width="1000" height="600">
+			<span>
+				您的浏览器版本过低，不支持canvas!!!!
+			</span>
+		</canvas>
+		<script type="text/javascript">
+			const oC = document.getElementById('cl');
+			const gd = cl.getContext('2d');
+			let arr = [300,200,800,50,900,150,380];
+			let iMax = Math.max.apply(null,arr);
+			
+			function rnd(n,m){
+				return parseInt(Math.random()*(m-n))+n;
+			}
+			
+			//求出每根柱子高度
+			let aHeight = [];
+			for(let i=0;i<arr.length;i++){
+				aHeight[i]=arr[i]/iMax*oC.height;
+			}
+			
+			//画柱子
+			let w = oC.width/(3*aHeight.length-2);
+			let space = w*2;
+			for(let i=0;i<aHeight.length;i++){
+				gd.fillStyle = 'rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')'
+//				gd.strokeRect(i*w+space*i,oC.height-aHeight[i],w,aHeight[i]);
+				gd.fillRect(i*w+space*i,oC.height-aHeight[i],w,aHeight[i]);
+			}
+			
+			
+		</script>
+	</body>
+</html>
